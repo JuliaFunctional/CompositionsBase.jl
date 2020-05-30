@@ -1,5 +1,4 @@
 module TestCompositionsBase
-
 using CompositionsBase
 using CompositionsBase: @var_str
 using Test
