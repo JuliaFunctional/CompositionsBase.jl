@@ -1,7 +1,7 @@
 name = "CompositionsBase"
 uuid = "a33af91c-f02d-484b-be07-31d278c5ca2b"
 authors = ["Takafumi Arakaki <aka.tkf@gmail.com> and contributors"]
-version = "0.1.0"
+version = "0.1.1-DEV"
 
 [compat]
 julia = "1"
