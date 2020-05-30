@@ -11,6 +11,7 @@ jobs:
         version:
           - '1.0'
           - '1.4'
+          - '1.5.0-beta1'
           - 'nightly'
         os:
           - ubuntu-latest
@@ -18,6 +19,12 @@ jobs:
           - windows-latest
         arch:
           - x64
+        exclude:
+          # See https://github.com/marketplace/actions/setup-julia-environment
+          - {os: 'macOS-latest', version: '1.4'}
+          - {os: 'macOS-latest', version: 'nightly'}
+          - {os: 'windows-latest', version: '1.4'}
+          - {os: 'windows-latest', version: 'nightly'}
     steps:
       - uses: actions/checkout@v2
       - uses: julia-actions/setup-julia@v1
