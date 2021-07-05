@@ -36,4 +36,48 @@ The opposite composition operator defined as
 export ∘, compose, opcompose
 @eval export $(Symbol("⨟"))  # for Julia 1.0
 
+if isdefined(Base, :ComposedFunction)
+    export decompose, deopcompose
+    """
+        decompose(comp)
+
+    Destructure a composition into its pieces:
+    ```jldoctest
+    julia> using CompositionsBase
+
+    julia> decompose(sin ∘ cos)
+    (sin, cos)
+
+    julia> decompose(sin∘cos∘identity)
+    (sin, cos, identity)
+
+    julia> decompose(sin)
+    (sin,)
+    ```
+
+    Requires at least Julia version 1.6. See also [deopcompose](@ref).
+    """
+    decompose(f) = (f,)
+    decompose(o::Base.ComposedFunction) = (decompose(o.outer)..., decompose(o.inner)...)
+
+    """
+        deopcompose(comp)
+
+    Destructure a composition into its pieces:
+    ```jldoctest
+    julia> using CompositionsBase
+
+    julia> deopcompose(sin ⨟cos⨟tan)
+    (sin, cos, tan)
+
+    julia> decompose(sin⨟cos⨟tan)
+    (tan, cos, sin)
+    ```
+
+    Requires at least Julia version 1.6. See also [decompose](@ref).
+    """
+    deopcompose(f) = (f,)
+    deopcompose(o::Base.ComposedFunction) = (deopcompose(o.inner)..., deopcompose(o.outer)...)
+end
+
 end # module
