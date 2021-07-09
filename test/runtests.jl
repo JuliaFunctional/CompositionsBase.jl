@@ -18,5 +18,19 @@ end
 if VERSION >= v"1.5.0-DEV.302"  # for ⨟
     include("test_julia15.jl")
 end
+if VERSION >= v"1.6"
+    @testset "decompose, deopcompose" begin
+        @test decompose(sin) === (sin,)
+        @test decompose(sin∘cos) === (sin,cos)
+        @test decompose(sin∘cos∘ tan) === (sin,cos,tan)
+        @test decompose((sin∘cos)∘ tan) === (sin,cos,tan)
+        @test decompose(sin∘(cos∘ tan)) === (sin,cos,tan)
+        @test decompose((sqrt∘sin)∘(cos∘ tan)) === (sqrt,sin,cos,tan)
+
+        @test deopcompose((sqrt∘sin)∘(cos∘ tan)) === (tan,cos,sin,sqrt)
+        @inferred deopcompose((sqrt∘sin)∘(cos∘ tan))
+        @inferred decompose((sqrt∘sin)∘(cos∘ tan))
+    end
+end
 
 end  # module
