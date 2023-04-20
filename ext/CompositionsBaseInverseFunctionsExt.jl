@@ -1,4 +1,4 @@
-module InverseFunctionsCompositionsBaseExt
+module CompositionsBaseInverseFunctionsExt
 using CompositionsBase
 import InverseFunctions
 
