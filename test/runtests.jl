@@ -32,5 +32,15 @@ if VERSION >= v"1.6"
         @inferred decompose((sqrt∘sin)∘(cos∘ tan))
     end
 end
+if VERSION >= v"1.9-"
+    using InverseFunctions
+
+    @testset "inverses" begin
+        InverseFunctions.test_inverse(decompose, sin ∘ tan ∘ cos; compare= ==)
+        InverseFunctions.test_inverse(deopcompose, sin ∘ tan ∘ cos; compare= ==)
+        InverseFunctions.test_inverse(splat(compose), (sin, tan, cos); compare= ==)
+        InverseFunctions.test_inverse(splat(opcompose), (sin, tan, cos); compare= ==)
+    end
+end
 
 end  # module
